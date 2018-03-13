@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: jump 
+spec:
+  containers:
+  - name: jump
+    image: alpine
+    command:
+      - sh
+      - -c
+      - |
+        apk update &&
+        apk add bash curl jq bind-tools &&
+        sleep 24h
