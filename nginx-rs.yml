@@ -1,5 +1,5 @@
-apiVersion: apps/v1beta2            
-kind: ReplicaSet                   
+apiVersion: apps/v1beta2
+kind: ReplicaSet
 metadata:
   name: nginx 
 spec:
