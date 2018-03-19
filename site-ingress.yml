@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: site-com
+  annotations:
+    kubernetes.io/ingress.class: "gce"
+spec:
+  rules:
+  - host: www.site.com
+    http:
+      paths:
+      - path: /nginx
+        backend:
+          serviceName: nginx-np
+          servicePort: 80
