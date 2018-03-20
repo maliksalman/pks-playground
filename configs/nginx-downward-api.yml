@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-downward-api
+  labels:
+    group: configs
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    ports:
+    - containerPort: 80
+      protocol: TCP
+    env:
+      - name: POD_NAME
+        valueFrom:
+          fieldRef:
+            fieldPath: metadata.name
+      - name: MSG
+        value: "downward-api-demo"
+
+    command:
+      - sh
+      - -cx
+      - |
+        echo "name:${POD_NAME}, msg:'${MSG}'" > /usr/share/nginx/html/index.html
+        nginx -g "daemon off;"

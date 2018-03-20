@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-vars
+  labels:
+    group: configs
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    ports:
+    - containerPort: 80
+      protocol: TCP
+    env:
+      - name: POD_NAME
+        value: nginx-vars
+      - name: MSG
+        value: "variables-demo"
+
+    command:
+      - sh
+      - -cx
+      - |
+        echo "name:${POD_NAME}, msg:'${MSG}'" > /usr/share/nginx/html/index.html
+        nginx -g "daemon off;"
