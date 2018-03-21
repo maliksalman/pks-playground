@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+data:
+  file.ext: |
+    multi
+    line
+    content
+  message: "config-map-demo"
+  foo: bar
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-with-cm
+  labels:
+    group: configs
+spec:
+  volumes:
+  - name: config-vol
+    configMap:
+      name: nginx-config
+  containers:
+  - name: nginx
+    image: nginx
+    ports:
+    - containerPort: 80
+      protocol: TCP
+    env:
+      - name: UPBEAT_VAR
+        valueFrom:
+          configMapKeyRef:
+            name: nginx-config
+            key: foo
+    command:
+      - sh
+      - -cx
+      - |
+        echo "name:$HOSTNAME, msg:'$(cat /usr/etc/config/message)'" > /usr/share/nginx/html/index.html
+        nginx -g "daemon off;"
+    volumeMounts:
+    - name: config-vol
+      mountPath: /usr/etc/config
+      readOnly: true
