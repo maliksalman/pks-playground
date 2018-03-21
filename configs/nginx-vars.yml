@@ -21,5 +21,5 @@ spec:
       - sh
       - -cx
       - |
-        echo "name:${POD_NAME}, msg:'${MSG}'" > /usr/share/nginx/html/index.html
+        echo "{\"name\":\"${POD_NAME}\", \"msg\":\"${MSG}\"}" > /usr/share/nginx/html/index.html
         nginx -g "daemon off;"

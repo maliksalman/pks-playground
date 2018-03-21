@@ -7,7 +7,7 @@ data:
     multi
     line
     content
-  message: "config-map-demo"
+  message: config-map-demo
   foo: bar
 ---
 apiVersion: v1
@@ -37,7 +37,7 @@ spec:
       - sh
       - -cx
       - |
-        echo "name:$HOSTNAME, msg:'$(cat /usr/etc/config/message)'" > /usr/share/nginx/html/index.html
+        echo "{\"name\":\"$HOSTNAME\", \"msg\":\"$(cat /usr/etc/config/message)\"}" > /usr/share/nginx/html/index.html
         nginx -g "daemon off;"
     volumeMounts:
     - name: config-vol
