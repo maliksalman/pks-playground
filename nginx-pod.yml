@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: nginx-1
+  name: nginx-v1-1
   labels:
     app: nginx
 spec:
   containers:
-  - name: nginx
+  - name: main
     image: nginx
     ports:
     - containerPort: 80
@@ -23,12 +23,12 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: nginx-2
+  name: nginx-v1-2
   labels:
     app: nginx
 spec:
   containers:
-  - name: nginx
+  - name: main
     image: nginx
     ports:
     - containerPort: 80

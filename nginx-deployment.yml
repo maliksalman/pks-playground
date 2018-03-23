@@ -1,14 +1,18 @@
-apiVersion: apps/v1beta2
-kind: ReplicaSet
+apiVersion: apps/v1beta1
+kind: Deployment
 metadata:
-  name: nginx-v2
+  name: nginx
 spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: nginx
+  replicas: 3
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 3
+      maxUnavailable: 0
   template:
     metadata:
+      name: nginx
       labels:
         app: nginx
     spec:
@@ -18,7 +22,7 @@ spec:
         ports:
         - containerPort: 80
           protocol: TCP
-        livenessProbe:
+        readinessProbe:
           httpGet:
             path: /
             port: 80
@@ -31,4 +35,4 @@ spec:
               - sh
               - -cx
               - |
-                echo "{\"name\":\"$HOSTNAME\", \"ver\":\"2.0\"}" > /usr/share/nginx/html/index.html
+                echo "{\"name\":\"$HOSTNAME\", \"ver\":\"3.0\"}" > /usr/share/nginx/html/index.html
