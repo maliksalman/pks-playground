@@ -1,7 +1,7 @@
 apiVersion: apps/v1beta2
 kind: ReplicaSet
 metadata:
-  name: nginx 
+  name: nginx
 spec:
   replicas: 2
   selector:
@@ -24,3 +24,11 @@ spec:
             port: 80
           initialDelaySeconds: 3
           periodSeconds: 3
+        lifecycle:
+          postStart:
+            exec:
+              command:
+              - sh
+              - -cx
+              - |
+                echo "{\"name\":\"$HOSTNAME\", \"ver\":\"2.0\"}" > /usr/share/nginx/html/index.html

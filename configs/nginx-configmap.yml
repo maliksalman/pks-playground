@@ -33,12 +33,14 @@ spec:
           configMapKeyRef:
             name: nginx-config
             key: foo
-    command:
-      - sh
-      - -cx
-      - |
-        echo "{\"name\":\"$HOSTNAME\", \"msg\":\"$(cat /usr/etc/config/message)\"}" > /usr/share/nginx/html/index.html
-        nginx -g "daemon off;"
+    lifecycle:
+      postStart:
+        exec:
+          command:
+          - sh
+          - -cx
+          - |
+            echo "{\"name\":\"$HOSTNAME\", \"msg\":\"$(cat /usr/etc/config/message)\"}" > /usr/share/nginx/html/index.html
     volumeMounts:
     - name: config-vol
       mountPath: /usr/etc/config

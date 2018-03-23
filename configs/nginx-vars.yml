@@ -16,10 +16,11 @@ spec:
         value: nginx-vars
       - name: MSG
         value: "variables-demo"
-
-    command:
-      - sh
-      - -cx
-      - |
-        echo "{\"name\":\"${POD_NAME}\", \"msg\":\"${MSG}\"}" > /usr/share/nginx/html/index.html
-        nginx -g "daemon off;"
+    lifecycle:
+      postStart:
+        exec:
+          command:
+          - sh
+          - -cx
+          - |
+            echo "{\"name\":\"${POD_NAME}\", \"msg\":\"${MSG}\"}" > /usr/share/nginx/html/index.html

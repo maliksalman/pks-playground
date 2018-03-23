@@ -7,9 +7,12 @@ spec:
   - name: jump
     image: alpine
     command:
-      - sh
-      - -c
-      - |
-        apk update &&
-        apk add bash curl jq bind-tools &&
-        sleep 24h
+      - sleep
+      - 24h
+    lifecycle:
+      postStart:
+        exec:
+          command:
+          - sh
+          - -c
+          - apk update && apk add bash curl jq bind-tools

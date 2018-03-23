@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fortune
+spec:
+  containers:
+  - name: fortune
+    image: alpine
+    command:
+      - sh
+      - -c
+      - |
+        apk update && apk add bash fortune
+        while true; do
+          fortune >> /usr/share/fortune/data.txt
+          printf "\n####### Generated at: $(date) #######\n" >> /usr/share/fortune/data.txt
+          sleep 5
+        done
+    volumeMounts:
+    - name: data
+      mountPath: /usr/share/fortune
+      readOnly: false
+  - name: logger
+    image: alpine
+    command:
+      - sh
+      - -c
+      - |
+        while true; do
+          if [ -f /var/fortune/data.txt ]; then
+            tail -f /var/fortune/data.txt
+          fi
+          sleep 1
+        done
+    volumeMounts:
+    - name: data
+      mountPath: /var/fortune
+      readOnly: true
+  volumes:
+  - name: data
+    emptyDir: {}
