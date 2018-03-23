@@ -52,18 +52,13 @@ spec:
             valueFrom:
               fieldRef:
                 fieldPath: metadata.namespace
-          - name: CONTAINER_MEM_MB
-            valueFrom:
-              resourceFieldRef:
-                resource: limits.memory
-                divisor: 1Mi
 ---
 apiVersion: apps/v1beta2
 kind: ReplicaSet
 metadata:
   name: grapes-sink 
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: grapes-sink
@@ -92,38 +87,3 @@ spec:
                 fieldPath: metadata.namespace
           - name: GRAPES_CONSUMER_GROUP
             value: real-grapez
----
-apiVersion: apps/v1beta2
-kind: ReplicaSet
-metadata:
-  name: raisins-sink 
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: raisins-sink
-      group: grapes
-  template:
-    metadata:
-      labels:
-        app: raisins-sink
-        group: grapes
-    spec:
-      containers:
-      - name: raisins-sink 
-        image: "maliksalman/grapes-sink:1.0.0"
-        imagePullPolicy: Always
-        resources:
-          requests:
-            memory: "500Mi"
-            cpu: "375m"
-          limits:
-            memory: "768Mi"
-            cpu: "500m"
-        env:
-          - name: NAMESPACE
-            valueFrom:
-              fieldRef:
-                fieldPath: metadata.namespace
-          - name: GRAPES_CONSUMER_GROUP
-            value: go-raisins

@@ -84,8 +84,8 @@ spec:
         image: "maliksalman/kubernetes-kafka:1.0.0"
         resources:
           requests:
-            memory: "1Gi"
-            cpu: "0.5"
+            memory: "500Mi"
+            cpu: "0.25"
         env:
           - name: NODE_HOSTNAME
             valueFrom:
