@@ -32,6 +32,7 @@ spec:
     spec:
       containers:
       - name: grapes-source 
+#       # https://github.com/maliksalman/messaging-grapes/blob/master/grapes-source/Dockerfile
         image: "maliksalman/grapes-source:1.0.0"
         imagePullPolicy: Always
 #        command:
@@ -43,10 +44,7 @@ spec:
         resources:
           requests:
             memory: "500Mi"
-            cpu: "375m"
-          limits:
-            memory: "768Mi"
-            cpu: "500m"
+            cpu: "0.25"
         env:
           - name: NAMESPACE
             valueFrom:
@@ -71,15 +69,13 @@ spec:
     spec:
       containers:
       - name: grapes-sink 
+#       # https://github.com/maliksalman/messaging-grapes/blob/master/grapes-sink/Dockerfile
         image: "maliksalman/grapes-sink:1.0.0"
         imagePullPolicy: Always
         resources:
           requests:
             memory: "500Mi"
-            cpu: "375m"
-          limits:
-            memory: "768Mi"
-            cpu: "500m"
+            cpu: "0.25"
         env:
           - name: NAMESPACE
             valueFrom:
