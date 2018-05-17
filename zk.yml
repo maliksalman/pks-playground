@@ -23,12 +23,10 @@ metadata:
 spec:
   selector:
     app: zk
-  type: NodePort
   ports:
   - port: 2181
     name: client
     targetPort: client
-    nodePort: 31000
 ---
 apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
@@ -97,7 +95,7 @@ spec:
           --tick_time=2000 \
           --init_limit=10 \
           --sync_limit=5 \
-          --heap=512M \
+          --heap=480M \
           --max_client_cnxns=60 \
           --snap_retain_count=3 \
           --purge_interval=12 \

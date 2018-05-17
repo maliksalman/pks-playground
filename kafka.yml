@@ -58,7 +58,7 @@ spec:
   replicas: 3
   updateStrategy:
     type: RollingUpdate
-  podManagementPolicy: Parallel
+  podManagementPolicy: OrderedReady
   template:
     metadata:
       labels:
