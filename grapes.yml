@@ -33,7 +33,7 @@ spec:
       containers:
       - name: grapes-source 
 #       # https://github.com/maliksalman/messaging-grapes/blob/master/grapes-source/Dockerfile
-        image: "maliksalman/grapes-source:1.0.0"
+        image: "maliksalman/grapes-source:1.1.0"
         imagePullPolicy: Always
 #        command:
 #          - sleep
@@ -54,7 +54,7 @@ spec:
 apiVersion: apps/v1beta2
 kind: ReplicaSet
 metadata:
-  name: grapes-sink 
+  name: grapes-sink
 spec:
   replicas: 1
   selector:
@@ -68,9 +68,9 @@ spec:
         group: grapes
     spec:
       containers:
-      - name: grapes-sink 
+      - name: grapes-sink
 #       # https://github.com/maliksalman/messaging-grapes/blob/master/grapes-sink/Dockerfile
-        image: "maliksalman/grapes-sink:1.0.0"
+        image: "maliksalman/grapes-sink:1.1.0"
         imagePullPolicy: Always
         resources:
           requests:

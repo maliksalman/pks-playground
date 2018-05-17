@@ -24,7 +24,7 @@ data:
 apiVersion: v1
 kind: Service
 metadata:
-  name: kafka-hs
+  name: kafka
   labels:
     app: kafka
 spec:
@@ -54,7 +54,7 @@ spec:
   selector:
     matchLabels:
       app: kafka
-  serviceName: kafka-hs
+  serviceName: kafka
   replicas: 3
   updateStrategy:
     type: RollingUpdate
@@ -81,7 +81,7 @@ spec:
       containers:
       - name: kubernetes-kafka
         imagePullPolicy: Always
-        image: "maliksalman/kubernetes-kafka:1.0.0"
+        image: "maliksalman/kubernetes-kafka:1.1.0"
         resources:
           requests:
             memory: "500Mi"

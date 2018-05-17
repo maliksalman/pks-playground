@@ -17,7 +17,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: zk-cs
+  name: zk
   labels:
     app: zk
 spec:
@@ -64,7 +64,7 @@ spec:
                   - key: "app"
                     operator: In
                     values:
-                    - zk-hs
+                    - zk
               topologyKey: "kubernetes.io/hostname"
       containers:
       - name: kubernetes-zookeeper
